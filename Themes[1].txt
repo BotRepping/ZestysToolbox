@@ -1,0 +1,61 @@
+##REPLACE COLOR AND COLOR2 IN 'toolbox.conf'##
+~ Default Theme ~
+COLOR='\033[38;5;196m'
+COLOR2='\033[38;5;238m'
+
+~ Zestys Theme ~
+COLOR='\033[38;5;42m'
+COLOR2='\033[38;5;237m'
+
+~ Embers Theme ~
+COLOR='\033[38;5;42m'
+COLOR2='\033[38;5;31m'
+
+~ OGEmbers Theme ~
+COLOR='\033[38;5;82m'
+COLOR2='\033[38;5;123m'
+
+~ Vindex Theme ~
+COLOR='\033[38;5;160m'
+COLOR2='\033[38;5;123m'
+
+~ OGEmbers Theme ~
+COLOR='\033[38;5;54m'
+COLOR2='\033[38;5;82m'
+
+~ Lucids Theme ~
+COLOR='\033[38;5;18m'
+COLOR2='\033[38;5;68m'
+
+~ Expidites Theme ~
+COLOR='\033[38;5;92m'
+COLOR2='\033[38;5;219m'
+
+~ Raccoons Theme ~
+COLOR='\033[38;5;196m'
+COLOR2='\033[38;5;90m'
+
+~ Decas Theme ~
+COLOR='\033[38;5;214m'
+COLOR2='\033[38;5;124m'
+
+~ Freshy Theme ~
+COLOR='\033[38;5;21m'
+COLOR2='\033[38;5;28m'
+
+~ Joker Theme ~
+COLOR='\033[38;5;82m'
+COLOR2='\033[38;5;54m'
+
+~ Checkers Theme ~
+COLOR='\033[38;5;15m'
+COLOR2='\033[38;5;236m'
+
+~ Halloween Theme ~
+COLOR='\033[38;5;46m'
+COLOR2='\033[38;5;202m'
+
+~ Christmas Theme ~
+COLOR='\033[38;5;47m'
+COLOR2='\033[38;5;196m'
+

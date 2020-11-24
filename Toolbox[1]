@@ -1,0 +1,370 @@
+#!/bin/bash
+###############################################
+#- Penetration Testing Toolbox By Zesty#1337 -#
+
+#To Install Edit The Values In #EDIT# Section
+#To Setup Toolbox/Install Dependencies Type *Setup*
+#And Scroll To Input Function And Select Input Type (Distro Based Default)
+#If Setup Fails | Dependencies: lynx, curl, screen
+
+#Discord : Zesty#1337
+#Twitter : @BotRepping
+#Email   : zesty@riseup.net
+###############################################
+source toolbox.conf #Calls Config
+
+Clear () {
+	clear
+	echo -e "${COLOR2} Welcome Back ${COLOR}[${COLOR2}$(whoami)${COLOR}] | ${COLOR2}IP: ${COLOR}[${COLOR2}$(curl -s http://icanhazip.com/)${COLOR}] | ${COLOR2}${NAME} Toolbox"
+	echo""
+	echo -e "${COLOR2} Toolbox Commands:"
+	echo -e "${COLOR2} Clear        ${COLOR}| ${COLOR2}Clears Screen"
+	echo -e "${COLOR2} Credits      ${COLOR}| ${COLOR2}Shows Toolbox Credits"
+	echo -e "${COLOR2} Encrypt      ${COLOR}| ${COLOR2}Encrypts Text"
+	echo -e "${COLOR2} Decrypt      ${COLOR}| ${COLOR2}Attempts To Crack Hash"
+	echo -e "${COLOR2} Attack       ${COLOR}| ${COLOR2}Sends (D)DOS Atttack Using APIS"
+	echo -e "${COLOR2} PortScan     ${COLOR}| ${COLOR2}Starts NMap Port Scan On IP"
+	echo -e "${COLOR2} Ping         ${COLOR}| ${COLOR2}Pings IP"
+	echo -e "${COLOR2} IPLogger     ${COLOR}| ${COLOR2}Creates IP Logger"
+	echo -e "${COLOR2} Abuse        ${COLOR}| ${COLOR2}Gets Currently Active Botnets Found By Abuse.ch"
+	echo -e "${COLOR2} MakeList     ${COLOR}| ${COLOR2}Creates Scanning List In A Variety Of Offshore Countrys"
+	echo -e "${COLOR2} Email        ${COLOR}| ${COLOR2}Checks If A Email Is Disposable"
+	echo -e "${COLOR2} NumberLookup ${COLOR}| ${COLOR2}Resolves Info Related To Number"
+	echo -e "${COLOR2} Lookup       ${COLOR}| ${COLOR2}Gets Geo-Info About IP"	
+	echo -e "${COLOR2} Resolve      ${COLOR}| ${COLOR2}Resolves Hostname"
+	echo -e "${COLOR2} Status       ${COLOR}| ${COLOR2}Checks Status Of Domain"
+	echo -e "${COLOR2} Cloudflare   ${COLOR}| ${COLOR2}Cloud Flare Resolver"
+	echo -e "${COLOR2} TraceRoute   ${COLOR}| ${COLOR2}Finds Hosts Trace Route"
+	echo -e "${COLOR2} DNSLookup    ${COLOR}| ${COLOR2}Looks Up DNS Records"
+	echo -e "${COLOR2} RDNS         ${COLOR}| ${COLOR2}Looks Up Reverse DNS"
+	echo -e "${COLOR2} HostSearch   ${COLOR}| ${COLOR2}Searchs For Host"
+	echo -e "${COLOR2} DNSSearch    ${COLOR}| ${COLOR2}Searchs For DNS"
+	echo -e "${COLOR2} Zone         ${COLOR}| ${COLOR2}Searchs Host For Zones"
+	echo -e "${COLOR2} Subnet       ${COLOR}| ${COLOR2}Searchs For Subnet Info"
+	echo -e "${COLOR2} Headers      ${COLOR}| ${COLOR2}Resolves For HTTP Headers"
+	echo -e "${COLOR2} PageLinks    ${COLOR}| ${COLOR2}Searchs Host For Page Links"
+	echo""
+	Input
+}
+
+Setup () {
+	clear
+	echo -e "${COLOR2} Inslalling Essentials For Zestys Toolbox"
+	sleep 1
+	echo -e "$(yum install curl -y;yum install screen -y;yum install)"
+	echo -e "$(apt-get install curl -y;apt-get install screen -y;apt-get install nload)"
+	echo "./Toolbox" >> .bashrc
+	clear
+	echo -e "${COLOR} ** ${COLOR2} Zestys Toolbox Has Been Installed${COLOR} **"
+	echo""
+	Input
+}
+
+Credits () {
+	clear
+	echo -e "${COLOR}            ** ${COLOR2}Credits${COLOR} **"
+	echo -e "${COLOR2}        Discord   ${COLOR}|${COLOR2}  Zesty${COLOR}#${COLOR2}1337"
+	echo -e "${COLOR2}        Twitter   ${COLOR}|${COLOR2}  ${COLOR}@${COLOR2}BotRepping"
+	echo -e "${COLOR2}        Email     ${COLOR}|${COLOR2}  Zesty${COLOR}@${COLOR2}riseup${COLOR}.${COLOR2}net"
+	echo""
+	echo -e "${COLOR2} This Toolbox Has Been Fully Devoloped/Made By ${COLOR}Zesty"
+	echo -e "${COLOR2} Use These Tools Responsibly, Any Harm Done With These"
+	echo -e "${COLOR2} Tools The User Must Take Entire Responsibility For"
+	echo""
+	Input
+}
+
+Encrypt () {
+	echo -e "${COLOR2}Encrypting Methods${Color2}${COLOR}: ${COLOR2}md5, md4, sha1, sha256, sha384, sha512"
+	echo -n -e "${COLOR2}Encrytion${COLOR}:${COLOR2} "
+	read Type
+	echo -n -e "${COLOR2}Text${COLOR}:${COLOR2} "
+	read Text
+	echo -e "${COLOR} ** ${COLOR2}Encrypting In $Type${COLOR} **"
+	echo -e "${COLOR2}"
+	lynx -dump "api.apithis.net/encrypt.php?type=$Type&content=$Text"
+	echo""
+	Input
+}
+
+Decrypt () {
+	echo -n -e "${COLOR2}$Type MD5 Hash${COLOR}: ${COLOR2}"
+	read Hash
+	echo -e "${COLOR} ** ${COLOR2}Attempting To Crack $Hash${COLOR} **"
+	echo -e "${COLOR2}"
+	lynx -dump "https://www.md5.ovh/$Hash"
+	echo""
+	Input
+}
+
+Status () {
+	echo -n -e "${COLOR2}Domain${COLOR}: ${COLOR2}"
+	read Domain
+	echo -e "${COLOR}|====================================================|"
+	echo -e "${COLOR}|${COLOR2}Status Codes${COLOR}: ${COLOR2}1 ${COLOR}= ${COLOR2}Online ${COLOR}| ${COLOR2}2 ${COLOR}= ${COLOR2}Offline ${COLOR}| ${COLOR2}3 ${COLOR}= ${COLOR2}Unknown${COLOR}|"
+	echo -e "${COLOR}|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|"
+	echo -e "${COLOR}|${COLOR2}Domain${COLOR}, ${COLOR2}Port${COLOR}, ${COLOR2}Status Code${COLOR}, ${COLOR2}IP${COLOR}, ${COLOR2}Response Code${COLOR}, ${COLOR2}Time  ${COLOR}|"
+	echo -e "${COLOR}|====================================================|${COLOR2}"
+	lynx -dump "https://isitup.org/$Domain.txt"
+	echo""
+	Input
+}
+
+Cloudflare () {
+	echo -n -e "${COLOR2}Host${COLOR}: ${COLOR2}"
+	read CF
+	echo -e "${COLOR} ** ${COLOR2}Resolving${COLOR} **"
+	echo -e "${COLOR2}"
+	lynx -dump "webresolver.nl/api.php?key=${WEBAPIKEY}&action=cloudflare&string=$CF"
+	echo""
+	Input
+}
+
+Lookup () {
+	echo -n -e "${COLOR2}IP${COLOR}: ${COLOR2}"
+	read GEOIP
+	echo -e "${COLOR} ** ${COLOR2}Looking Up IP${COLOR} **"
+	echo -e "${COLOR2}"
+	lynx -dump "webresolver.nl/api.php?key=${WEBAPIKEY}&action=geoip&string=$GEOIP"
+	echo""
+	Input
+}
+
+IPLogger () {
+	echo -n -e "${COLOR2}Redirect${COLOR}: ${COLOR2}"
+	read Redirect
+	echo -e "${COLOR} ** ${COLOR2}Creating Logger Link${COLOR} **"
+	echo -e "${COLOR2}"
+	lynx -dump "https://webresolver.nl/api.php?key=${WEBAPIKEY}&action=iplogger&string=&logger=$Redirect"
+	echo""
+	Input
+}
+
+Email () {
+	echo -n -e "${COLOR2}Email${COLOR}: ${COLOR2}"
+	read Email
+	echo -e "${COLOR} ** ${COLOR2}Checking If Email Is Disposable${COLOR} **"
+	echo -e "${COLOR2}"
+	lynx -dump "https://webresolver.nl/api.php?key=${WEBAPIKEY}&action=disposable_email&string=$Email"
+	echo""
+	Input
+}
+
+NumberLookup () {
+	echo -n -e "${COLOR2}Phone Number${COLOR}: ${COLOR2}"
+	read Number
+	echo -e "${COLOR} ** ${COLOR2}Looking Up Phone Number${COLOR} **"
+	echo -e "${COLOR2}"
+	lynx -dump "api.apithis.net/numberinfo.php?number=$Number"
+	echo""
+	Input
+}
+
+Resolve () {
+	echo -n -e "${COLOR2}Domain${COLOR}: ${COLOR2}"
+	read Host
+	echo -e "${COLOR} ** ${COLOR2}Resolving Domain${COLOR} **"
+	echo -e "${COLOR2}"
+	lynx -dump "api.apithis.net/host2ip.php?hostname=$Host"
+	echo""
+	Input
+}
+
+PortScan () {
+	echo -n -e "${COLOR2}IP${COLOR}: ${COLOR2}"
+	read Host
+	echo -e "${COLOR} ** ${COLOR2}PortScan Started On $Host${COLOR} **"
+	echo -e "${COLOR2}"
+	lynx -dump "api.hackertarget.com/nmap/?q=$Host"
+	echo""
+	Input
+}
+
+Attack () {
+	echo -e "${COLOR2}Main Attack Methods${COLOR}: ${COLOR2}${METHODS} ${COLOR2}"
+	echo -n -e "${COLOR2}Method${COLOR}: ${COLOR2}"
+	read Method
+	echo -n -e "${COLOR2}IP${COLOR}: ${COLOR2}"
+	read IP
+	echo -n -e "${COLOR2}Port${COLOR}: ${COLOR2}"
+	read Port
+	echo -n -e "${COLOR2}Time${COLOR}: ${COLOR2}"
+	read Time
+	sleep 0.5
+	screen -dm curl -s -o /dev/null "${API}&host=$IP&port=$Port&time=$Time&method=$Method"
+	echo -e "${COLOR2}${Name} Toolbox ${COLOR}|${COLOR2} Attacking ${COLOR}[${COLOR2}$IP${COLOR}]${COLOR2} On Port ${COLOR}[${COLOR2}$Port${COLOR}]${COLOR2} For ${COLOR}[${COLOR2}$Time${COLOR}]${COLOR2} Seconds Using ${COLOR}[${COLOR2}$Method${COLOR}]${COLOR2}"
+	echo -e "${COLOR2}"
+	read -p "Press [Enter] To Stop Attack"
+	screen -dm curl -s -o /dev/null "${API}&host=$IP&port=$Port&time=$Time&method=STOP"
+	echo -e "${COLOR2}"
+	echo -e "${COLOR} ** ${COLOR2}Attack Has Been Stopped ${COLOR} **"
+	echo""
+	Input
+}
+
+TraceRoute () {
+	echo -n -e "${COLOR2}Host Name${COLOR}: ${COLOR2}"
+	read Host
+	echo -e "${COLOR} ** ${COLOR2}Finding Trace Route Of $Host${COLOR} **"
+	echo -e "${COLOR2}"
+	lynx -dump "api.hackertarget.com/mtr/?q=$Host"
+	echo""
+	Input
+}
+
+Ping () {
+	echo -n -e "${COLOR2}Host Name${COLOR}: ${COLOR2}"
+	read Host
+	echo -e "${COLOR} ** ${COLOR2}Pinging $Host${COLOR} **"
+	echo -e "${COLOR2}"
+	lynx -dump "api.hackertarget.com/nping/?q=$Host"
+	echo""
+	Input
+}
+
+DNSLookup () {
+	echo -n -e "${COLOR2}Domain${COLOR}: ${COLOR2}"
+	read Host
+	echo -e "${COLOR} ** ${COLOR2}Resolving $Host DNS Info${COLOR} **"
+	echo -e "${COLOR2}"
+	lynx -dump "api.hackertarget.com/dnslookup/?q=$Host"
+	echo""
+	Input
+}
+
+RDNS () {
+	echo -n -e "${COLOR2}Domain${COLOR}: ${COLOR2}"
+	read Host
+	echo -e "${COLOR} ** ${COLOR2}Resolving $Host Reverse DNS Info${COLOR} **"
+	echo -e "${COLOR2}"
+	lynx -dump "api.hackertarget.com/reversedns/?q=$Host"
+	echo""
+	Input
+}
+
+HostSearch () {
+	echo -n -e "${COLOR2}Domain${COLOR}: ${COLOR2}"
+	read Host
+	echo -e "${COLOR} ** ${COLOR2}Resolving $Host Host Info${COLOR} **"
+	echo -e "${COLOR2}"
+	lynx -dump "api.hackertarget.com/reversedns/?q=$Host"
+	echo""
+	Input
+}
+
+DNSSearch () {
+	echo -n -e "${COLOR2}Domain${COLOR}: ${COLOR2}"
+	read Host
+	echo -e "${COLOR} ** ${COLOR2}Resolving $Host DNS Records${COLOR} **"
+	echo -e "${COLOR2}"
+	lynx -dump "api.hackertarget.com/findshareddns/?q=$Host"
+	echo""
+	Input
+}
+
+Zone () {
+	echo -n -e "${COLOR2}Domain${COLOR}: ${COLOR2}"
+	read Host
+	echo -e "${COLOR} ** ${COLOR2}Resolving $Host Zone Transfers${COLOR} **"
+	echo -e "${COLOR2}"
+	lynx -dump "api.hackertarget.com/zonetransfer/?q=$Host"
+	echo""
+	Input
+}
+
+Subnet () {
+	echo -n -e "${COLOR2}Host${COLOR}: ${COLOR2}"
+	read Host
+	echo -e "${COLOR} ** ${COLOR2}Resolving $Host Subnet${COLOR} **"
+	echo -e "${COLOR2}"
+	lynx -dump "api.hackertarget.com/subnetcalc/?q=$Host"
+	echo""
+	Input
+}
+
+Headers () {
+	echo -n -e "${COLOR2}Domain${COLOR}: ${COLOR2}"
+	read Host
+	echo -e "${COLOR} ** ${COLOR2}Resolving $Host Headers${COLOR} **"
+	echo -e "${COLOR2}"
+	lynx -dump "api.hackertarget.com/httpheaders/?q=$Host"
+	echo""
+	Input
+}
+
+Abuse () {
+	echo -e "${COLOR} ** ${COLOR2}Receiving URLHaus Online Botnet Database${COLOR} **"
+	echo -e "${COLOR2}"
+	lynx -dump "urlhaus.abuse.ch/downloads/text_online/" >> ActiveMal.lst
+	echo -e "${COLOR2}Saved All Active Malware Links To ActiveMal.lst"
+	echo""
+	Input
+}
+ 
+MakeList () {
+	echo -n -e "${COLOR2}List Name${COLOR}: ${COLOR2}"
+	read List  
+	echo -e "${COLOR} ** ${COLOR2}Creating Scanning .lst${COLOR} **"
+	echo -e "${COLOR2}Setting Up Lists Dir"
+	mkdir Lists
+	cd Lists
+	echo -e "${COLOR2}Loading Iran Ranges To $List-1"
+	lynx -dump "https://www.ipdeny.com/ipblocks/data/countries/ir.zone" >> $List-1.lst
+	echo -e "${COLOR2}Loading Greece Ranges To $List-1"
+	lynx -dump "https://www.ipdeny.com/ipblocks/data/countries/gr.zone" >> $List-1.lst
+	echo -e "${COLOR2}Loading Brazil Ranges To $List-1"
+	lynx -dump "https://www.ipdeny.com/ipblocks/data/countries/br.zone" >> $List-1.lst
+	echo -e "${COLOR2}Loading Colombia Ranges To $List-1"
+	lynx -dump "https://www.ipdeny.com/ipblocks/data/countries/co.zone" >> $List-1.lst
+	echo -e "${COLOR2}Loading Mexico Ranges To $List-1"
+	lynx -dump "https://www.ipdeny.com/ipblocks/data/countries/mx.zone" >> $List-1.lst
+	echo -e "${COLOR2}Loading Argentina Ranges To $List-2"
+	lynx -dump "https://www.ipdeny.com/ipblocks/data/countries/ar.zone" >> $List-2.lst
+	echo -e "${COLOR2}Loading Croatia Ranges To $List-2"
+	lynx -dump "https://www.ipdeny.com/ipblocks/data/countries/hr.zone" >> $List-2.lst
+	echo -e "${COLOR2}Loading India Ranges To $List-3"
+	lynx -dump "https://www.ipdeny.com/ipblocks/data/countries/io.zone" >> $List-3.lst
+	echo -e "${COLOR2}Loading Egypt Ranges To $List-3"
+	lynx -dump "https://www.ipdeny.com/ipblocks/data/countries/eg.zone" >> $List-3.lst
+	echo -e "${COLOR2}Loading Dominican Ranges To $List-3"
+	lynx -dump "https://www.ipdeny.com/ipblocks/data/countries/dm.zone" >> $List-3.lst
+	echo -e "${COLOR2}Loading Costa Rica Ranges To $List-3"
+	lynx -dump "https://www.ipdeny.com/ipblocks/data/countries/cr.zone" >> $List-3.lst
+	echo -e "${COLOR2}Loading Nigeria Ranges To $List-3"
+	lynx -dump "https://www.ipdeny.com/ipblocks/data/countries/ng.zone" >> $List-3.lst
+	echo -e "${COLOR2}Loading Norway Ranges To $List-3"
+	lynx -dump "https://www.ipdeny.com/ipblocks/data/countries/no.zone" >> $List-3.lst
+	echo -e "${COLOR2}Loading Poland Ranges To $List-4"
+	lynx -dump "https://www.ipdeny.com/ipblocks/data/countries/pl.zone" >> $List-4.lst
+	echo -e "${COLOR2}Loading China Ranges To $List-4"
+	lynx -dump "https://www.ipdeny.com/ipblocks/data/countries/cn.zone" >> $List-4.lst
+	echo -e "${COLOR2}Loading Korea Ranges To $List-4"
+	lynx -dump "https://www.ipdeny.com/ipblocks/data/countries/kr.zone" >> $List-4.lst
+	echo -e "${COLOR2}Loading Germany Ranges To $List-4"
+	lynx -dump "https://www.ipdeny.com/ipblocks/data/countries/de.zone" >> $List-4.lst
+	echo -e "${COLOR2}Lists Have Been Generated To $List.lst $List-2.lst $List-3.lst $List-4.lst"
+	echo""
+	Input
+}
+
+PageLinks () {
+	echo -n -e "${COLOR2}Domain${COLOR}: ${COLOR2}"
+	read Host
+	echo -e "${COLOR} ** ${COLOR2}Resolving $Host Page Links${COLOR} **"
+	echo -e "${COLOR2}"
+	lynx -dump "api.hackertarget.com/pagelinks/?q=$Host"
+	echo""
+	Input
+}
+
+
+Input () {
+  #echo -n -e "${COLOR2}$(whoami)${COLOR}@${COLOR2}$(hostname)${COLOR}:${COLOR2}/$NAMEToolbox${COLOR}# ${COLOR2}" #Hostname Based 
+  echo -n -e "${COLOR2}$(whoami)${COLOR}@${COLOR2}$(cat /etc/issue.net)${COLOR}:${COLOR2}/$NAMEToolbox${COLOR}# ${COLOR2}" #Distro Based
+  read Option
+  $Option
+  Input
+}
+
+Clear #Trigger Welcome
+Input #Trigger Input
