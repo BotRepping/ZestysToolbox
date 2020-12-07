@@ -24,7 +24,7 @@ Clear () {
 	echo -e "${COLOR2} Decrypt      ${COLOR}| ${COLOR2}Attempts To Crack Hash"
 	echo -e "${COLOR2} Attack       ${COLOR}| ${COLOR2}Sends (D)DOS Atttack Using APIS"
 	echo -e "${COLOR2} PortScan     ${COLOR}| ${COLOR2}Starts NMap Port Scan On IP"
-	echo -e "${COLOR2} Ping         ${COLOR}| ${COLOR2}Pings IP"
+	echo -e "${COLOR2} Ping (IP)    ${COLOR}| ${COLOR2}Pings IP"
 	echo -e "${COLOR2} IPLogger     ${COLOR}| ${COLOR2}Creates IP Logger"
 	echo -e "${COLOR2} Abuse        ${COLOR}| ${COLOR2}Gets Currently Active Botnets Found By Abuse.ch"
 	echo -e "${COLOR2} MakeList     ${COLOR}| ${COLOR2}Creates Scanning List In A Variety Of Offshore Countrys"
@@ -213,13 +213,10 @@ TraceRoute () {
 }
 
 Ping () {
-	echo -n -e "${COLOR2}Host Name${COLOR}: ${COLOR2}"
-	read Host
-	echo -e "${COLOR} ** ${COLOR2}Pinging $Host${COLOR} **"
-	echo -e "${COLOR2}"
-	lynx -dump "api.hackertarget.com/nping/?q=$Host"
-	echo""
-	Input
+  IP="$@"
+ 	echo -e "${COLOR} ** ${COLOR2}Pinging $IP${COLOR} **${COLOR2}"
+  ping -O $IP
+  Input
 }
 
 DNSLookup () {
